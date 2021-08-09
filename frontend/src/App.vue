@@ -77,7 +77,6 @@ export default {
           { title: "Главная", icon: "mdi-view-dashboard", link: "/" },
           { title: "Графики", icon: "mdi-account-box", link: "/graphs" },
           { title: "Логин", icon: "mdi-account-box", link: "/login" },
-          //  { title: "Admin", icon: "mdi-gavel" },
         ],
       },
       toggleDrawer: true,
