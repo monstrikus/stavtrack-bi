@@ -22,7 +22,6 @@ export default {
   created() {
     axios.get("http://127.0.0.1:8000/api/state").then((response) => {
       this.state = response.data;
-      console.log(this.state);
       for (let item of response.data) {
         this.val += item.value;
       }

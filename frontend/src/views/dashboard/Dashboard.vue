@@ -22,7 +22,7 @@
       <v-col md="2">
         <Card
           :cardName="conversion[0].value_name"
-          :count="conversion[0].value  + ' %'"
+          :count="conversion[0].value + ' %'"
         />
       </v-col>
 
@@ -82,50 +82,28 @@ export default {
     };
   },
   created() {
-    axios.get(process.env.VUE_APP_BACKEND_HOST + "/api/state").then((response) => {
-      this.grossProfitAll = response.data.filter(
-        (element) => element.value_name == "Общий вал"
-      );
-      this.wialonObjects = response.data.filter(
-        (element) => element.value_name == "Объекты"
-      );
-      this.orders = response.data.filter(
-        (element) => element.value_name == "Заявки"
-      );
-      this.conversion = response.data.filter(
-        (element) => element.value_name == "Конверсия"
-      );
-      this.receivable = response.data.filter(
-        (element) => element.value_name == "Постоплаты"
-      );
-      this.deals = response.data.filter(
-        (element) => element.value_name == "Сделки"
-      );
-      this.qualifiedLeads = response.data.filter(
-        (element) => element.value_name == "Кач лиды"
-      );
-      this.convertLeads = response.data.filter(
-        (element) => element.value_name == "Сконверт лиды"
-      );
-      this.sendOffers = response.data.filter(
-        (element) => element.value_name == "Отправлено КП"
-      );
-      this.newDeals = response.data.filter(
-        (element) => element.value_name == "Сделки выст"
-      );
-      this.firtsDeals = response.data.filter(
-        (element) => element.value_name == "Перв сделки"
-      );
-      this.secDeals = response.data.filter(
-        (element) => element.value_name == "Повт сделки"
-      );
-      this.regDeals = response.data.filter(
-        (element) => element.value_name == "Пост сделки"
-      );
-      this.state = response.data;
-      
-      
-    });
-  },
+    axios
+      .get(`http://127.0.0.1:8000/api/state`, {
+        headers: {
+          Authorization: "Bearer 2|WeQ3RSRnCIoNJC2QcmvRPoeqiOwwG924BCxTFaXa",
+        },
+      })
+      .then(response => {
+        this.grossProfitAll = response.data.filter(element => element.value_name == "Общий вал");
+        this.wialonObjects = response.data.filter(element => element.value_name == "Объекты");
+        this.orders = response.data.filter(element => element.value_name == "Заявки");
+        this.conversion = response.data.filter(element => element.value_name == "Конверсия");
+        this.receivable = response.data.filter(element => element.value_name == "Постоплаты");
+        this.deals = response.data.filter(element => element.value_name == "Сделки");
+        this.qualifiedLeads = response.data.filter(element => element.value_name == "Кач лиды");
+        this.convertLeads = response.data.filter(element => element.value_name == "Сконверт лиды");
+        this.sendOffers = response.data.filter(element => element.value_name == "Отправлено КП");
+        this.newDeals = response.data.filter(element => element.value_name == "Сделки выст");
+        this.firtsDeals = response.data.filter(element => element.value_name == "Перв сделки");
+        this.secDeals = response.data.filter(element => element.value_name == "Повт сделки");
+        this.regDeals = response.data.filter(element => element.value_name == "Пост сделки");
+        this.state = response.data;
+   });
+   },
 };
 </script>
