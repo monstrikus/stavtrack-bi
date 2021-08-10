@@ -23,14 +23,9 @@ class AuthController extends Controller
             "password" => bcrypt($fields["password"]),
         ]);
 
-        $token = $user->createToken('bi_system_token')->plainTextToken;
+        $token = $user->createToken("$user->id|$user->name|$user->email")->plainTextToken;
 
-        $response = [
-            "user" => $user,
-            "token" => $token
-        ];
-
-        return response($response, 201);
+        return response(["user" => $user, "token" => $token], 201);
     }
 
     public function login(Request $request)
@@ -42,25 +37,18 @@ class AuthController extends Controller
 
         $user = User::where('email', $fields['email'])->first();
 
-        if (!$user || !Hash::check($fields['password'], $user->password)) {
-            return response([
-                "message" => 'Unauthenticated.'
-            ], 401);
-        }
+        if (!$user || !Hash::check($fields['password'], $user->password)) return response(["message" => 'Unauthenticated.'], 401);
 
-        $token = $user->createToken('bi_system_token')->plainTextToken;
+        $token = $user->createToken("$user->id|$user->name|$user->email")->plainTextToken;
 
-        $response = [
-            "user" => $user,
-            "token" => $token
-        ];
-
-        return response($response, 201);
+        return response(["token" => $token], 201);
     }
 
     public function logout(Request $request)
     {
-        
-        return response(["message" => auth()]);
+        preg_match('/[0-9]+/', $request->header('Authorization'), $id);
+        $user = User::find($id[0]);
+        $user->tokens()->delete();
+        return response(["message" => "succes logged out."], 200);
     }
 }
