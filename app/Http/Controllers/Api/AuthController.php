@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -41,14 +41,13 @@ class AuthController extends Controller
 
         $token = $user->createToken("$user->id|$user->name|$user->email")->plainTextToken;
 
-        return response(["token" => $token], 201);
+        return response(["user" => $user, "token" => $token], 200);
     }
 
     public function logout(Request $request)
     {
-        preg_match('/[0-9]+/', $request->header('Authorization'), $id);
-        $user = User::find($id[0]);
-        $user->tokens()->delete();
-        return response(["message" => "succes logged out."], 200);
+        auth()->user()->tokens()->delete();
+
+        return response(["message" => "success logged out."], 200);
     }
 }

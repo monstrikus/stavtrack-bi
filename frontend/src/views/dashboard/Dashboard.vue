@@ -82,12 +82,8 @@ export default {
     };
   },
   created() {
-    axios
-      .get(`http://127.0.0.1:8000/api/state`, {
-        headers: {
-          Authorization: "Bearer 2|WeQ3RSRnCIoNJC2QcmvRPoeqiOwwG924BCxTFaXa",
-        },
-      })
+    this.$http
+      .get(`http://127.0.0.1:8000/api/state`)
       .then(response => {
         this.grossProfitAll = response.data.filter(element => element.value_name == "Общий вал");
         this.wialonObjects = response.data.filter(element => element.value_name == "Объекты");

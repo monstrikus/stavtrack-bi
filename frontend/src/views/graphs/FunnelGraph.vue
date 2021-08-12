@@ -56,9 +56,6 @@ export default {
     series.labelsContainer.paddingLeft = 15;
     series.labelsContainer.width = 200;
 
-    //series.orientation = "horizontal";
-    //series.bottomRatio = 1;
-
     chart.legend = new am4charts.Legend();
     chart.legend.position = "left";
     chart.legend.valign = "bottom";
