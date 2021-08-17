@@ -35,34 +35,40 @@ const router = new VueRouter({
 	]
 })
 
+// router.beforeEach((to, from, next) => {
+// 	if (to.matched.some(record => record.meta.auth)) {
+// 		if (store.getters.isLoggedIn) {
+// 			next()
+// 			return
+// 		}
+// 		next('/auth/login')
+// 	} else {
+// 		next()
+// 	}
+// })
+
+
 router.beforeEach((to, from, next) => {
 	if (to.matched.some(record => record.meta.auth)) {
 		if (store.getters.isLogged) {
 			if (to.path === '/') {
-					next('/app/dashboard')
-					return
-				} else {
-					next()
-					return
-				}
-			}
-			next('/auth/login')
-		} else {
-			if (store.getters.isLogged && to.path === '/auth/login' || to.path === '/auth/registration') {
 				next('/app/dashboard')
 				return
 			} else {
-
-				if (to.path === '/') {
-					next('/app/dashboard')
-					return
-				} else {
-					next()
-					return
-				}
+				next()
+				return
 			}
-				
 		}
-	})
-
+		next('/auth/login')
+	} else {
+		if (store.getters.isLogged) {
+			if (to.path === '/auth/login' || to.path === '/auth/registration') {
+				next('/app/dashboard')
+				return
+			}
+		} else {
+			next()
+		}
+	}
+})
 export default router;
