@@ -8,6 +8,7 @@ import Registration from '@/views/auth/components/Registration';
 import LayoutApp from '@/views/layout/Layout'
 import store from '../store/index'
 import error from '@/views/404/404'
+
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -36,19 +37,19 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
+
+	if (to.path === '/') {
+		next('/app/dashboard')
+	}
+
 	if (to.matched.some(record => record.meta.auth)) {
 		if (store.getters.isLogged) {
-			if (to.path === '/') {
-				next('/app/dashboard')
-			} else if (to.path === '/auth/registration' || to.path === '/auth/login') {
-				next('/app/dashboard')
-			}
 			next()
 		}
 		next('/auth/login')
 	} else {
 		if (store.getters.isLogged) {
-			if (to.path === '/auth/registration' || to.path === '/auth/login') {
+			if (to.path === '/auth/login' || to.path === '/auth/registration') {
 				next('/app/dashboard')
 			}
 		}
