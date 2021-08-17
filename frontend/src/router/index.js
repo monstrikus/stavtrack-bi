@@ -36,25 +36,67 @@ const router = new VueRouter({
 	]
 })
 
-router.beforeEach((to, from, next) => {
+// router.beforeEach((to, from, next) => {
 
-	if (to.path === '/') {
-		next('/app/dashboard')
-	}
+// 	if (to.path === '/') {
+// 		next('/app/dashboard')
+// 	}
 
-	if (to.matched.some(record => record.meta.auth)) {
-		if (store.getters.isLogged) {
-			next()
-		}
-		next('/auth/login')
-	} else {
-		if (store.getters.isLogged) {
-			if (to.path === '/auth/login' || to.path === '/auth/registration') {
-				next('/app/dashboard')
-			}
-		}
-		next()
-	}
-})
+// 	if (to.matched.some(record => record.meta.auth)) {
+// 		if (store.getters.isLogged) {
+// 			next()
+// 		}
+// 		next('/auth/login')
+// 	} else {
+// 		if (store.getters.isLogged) {
+// 			if (to.path === '/auth/login' || to.path === '/auth/registration') {
+// 				next('/app/dashboard')
+// 			}
+// 		}
+// 		next()
+// 	}
+// })
+
+// router.beforeEach((to, from, next) => {
+// 	if (to.matched.some(record => record.meta.auth)) {
+// 		if (store.getters.isLogged) {
+// 			if (to.path === '/') {
+// 				next('/app/dashboard')
+// 				return
+// 			} else {
+// 				next()
+// 				return
+// 			}
+// 		}
+// 		next('/auth/login')
+// 	} else {
+// 		if (store.getters.isLogged && to.path === '/auth/login' || to.path === '/auth/registration') {
+// 			next('/app/dashboard')
+// 			return
+// 		} else {
+
+// 			if (to.path === '/') {
+// 				next('/app/dashboard')
+// 				return
+// 			} else {
+// 				next()
+// 				return
+// 			}
+// 		}
+
+// 	}
+// })
+
+// router.beforeEach((to, from, next) => {
+// 	if (to.matched.some(record => record.meta.requiresAuth)) {
+// 		if (store.getters.isLoggedIn) {
+// 			next()
+// 			return
+// 		}
+// 		next('/login')
+// 	} else {
+// 		next()
+// 	}
+// })
 
 export default router;
