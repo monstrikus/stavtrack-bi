@@ -6,8 +6,7 @@ import axios from 'axios'
 import store from './store'
 
 Vue.prototype.$http = axios;
-Vue.prototype.$http.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}` ?? '';
-
+if (localStorage.getItem('token')) Vue.prototype.$http.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
 Vue.config.productionTip = false
 
 new Vue({
