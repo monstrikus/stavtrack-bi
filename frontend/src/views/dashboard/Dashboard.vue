@@ -83,7 +83,7 @@ export default {
   },
   created() {
     this.$http
-      .get(`http://127.0.0.1:8000/api/state`)
+      .get(`${process.env.VUE_APP_BACKEND_HOST}/api/state`)
       .then(response => {
         this.grossProfitAll = response.data.filter(element => element.value_name == "Общий вал");
         this.wialonObjects = response.data.filter(element => element.value_name == "Объекты");
